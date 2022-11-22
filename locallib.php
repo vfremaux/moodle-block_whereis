@@ -62,8 +62,7 @@ function block_whereis_mnet_query($query) {
                 foreach ($hostresults as $userrec) {
                     $vhosttpl = new StdClass;
                     $vhosttpl->hostname = $vhost->name;
-                    $mnetid = $DB->get_field('mnet_hosts', 'id', ['wwwroot' => $vhost->vhostname]);
-                    $vhosttpl->hosturl = new moodle_url('/auth/mnet/jump.php', array('id' => $mnetid));
+                    $vhosttpl->hosturl = new moodle_url('/auth/mnet/jump.php', array('wwwroot' => $vhost->vhostname));
                     if (!array_key_exists($userrec->idnumber, $distinctusers)) {
                         $userrec->hosts = array($vhosttpl);
                         $distinctusers[$userrec->username] = $userrec;
@@ -72,6 +71,7 @@ function block_whereis_mnet_query($query) {
                     }
                 }
             }
+
         }
         return array_values($distinctusers);
     }
